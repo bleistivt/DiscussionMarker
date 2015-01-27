@@ -6,7 +6,8 @@ $PluginInfo['DiscussionMarker'] = array(
     'Version' => '1.7',
     'SettingsUrl' => '/dashboard/settings/DiscussionMarker',
     'MobileFriendly' => true,
-    'Author' => "Peregrine"
+    'Author' => "Peregrine",
+    'License' => 'GNU GPL2'
 );
 
 class DiscussionMarkerPlugin extends Gdn_Plugin {
