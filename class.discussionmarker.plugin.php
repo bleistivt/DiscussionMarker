@@ -3,7 +3,7 @@
 $PluginInfo['DiscussionMarker'] = array(
     'Name' => 'Discussion Marker',
     'Description' => 'Label a discussion on Discussions page based on words contained in Title.  Options for click scrolling or click searching for Labels',
-    'Version' => '1.7',
+    'Version' => '1.8',
     'SettingsUrl' => '/dashboard/settings/DiscussionMarker',
     'MobileFriendly' => true,
     'Author' => 'Peregrine',
