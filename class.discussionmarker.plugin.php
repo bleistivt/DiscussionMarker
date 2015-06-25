@@ -68,7 +68,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
                 continue;
             }
 
-            $tagmarker = preg_replace('/[\s]/','-',$marker);
+            $tagmarker = preg_replace('/[\s]/', '-', $marker);
             if (c('Plugins.DiscussionMarker.GroupLabels', false)) {
                 $lMarker = 'DLP ' .$marker;
                 $marker = ucwords(strtolower(t($lMarker)));
@@ -79,7 +79,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             } else {
                 $searchurl = 'search&Search=' . preg_replace('/[\s]/', '+', $marker);
                 echo anchor(wrap(Gdn_Format::text($marker), 'span',
-                    array('class' => 'Tag DMarker DMarker-' . $tagmarker )), $searchurl);
+                    array('class' => 'Tag DMarker DMarker-'.$tagmarker )), $searchurl);
             }
         }
     }
