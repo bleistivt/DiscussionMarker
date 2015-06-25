@@ -28,7 +28,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
         $sender->Form->setModel($configurationModel);
 
         if ($sender->Form->authenticatedPostBack() && $sender->Form->save()) {
-            $sender->informMessage(T('Your settings have been saved.'));
+            $sender->informMessage(t('Your settings have been saved.'));
         } else {
             $sender->Form->setData($configurationModel->Data);
         }
@@ -47,21 +47,21 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
 
     public function discussionsController_render_before($sender) {
         $sender->addCssFile('dm.css', 'plugins/DiscussionMarker');
-        if (C('Plugins.DiscussionMarker.AllowJump', false) == 'Scroll') {
+        if (c('Plugins.DiscussionMarker.AllowJump', false) == 'Scroll') {
             $sender->addJsFile($this->getResource('js/discussionmarker.js', false, false));
         }
     }
 
     public function categoriesController_render_before($sender) {
         $sender->addCssFile('dm.css', 'plugins/DiscussionMarker');
-        if (C('Plugins.DiscussionMarker.AllowJump', false) == 'Scroll') {
+        if (c('Plugins.DiscussionMarker.AllowJump', false) == 'Scroll') {
             $sender->addJsFile($this->getResource('js/discussionmarker.js', false, false));
         }
     }
 
     protected function displayMarker($sender, $args) {
         $title = val('Name', $args['Discussion']);
-        $markerArray = preg_split('/ *, */', C('Plugins.DiscussionMarker.WordList'));
+        $markerArray = preg_split('/ *, */', c('Plugins.DiscussionMarker.WordList'));
 
         foreach ($markerArray as $marker) {
             if (!preg_match('/\b'.$marker.'\b/', $title)) {
@@ -69,12 +69,12 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             }
 
             $tagmarker = preg_replace('/[\s]/','-',$marker);
-            if (C('Plugins.DiscussionMarker.GroupLabels', false)) {
+            if (c('Plugins.DiscussionMarker.GroupLabels', false)) {
                 $lMarker = 'DLP ' .$marker;
-                $marker = ucwords(strtolower(T($lMarker)));
+                $marker = ucwords(strtolower(t($lMarker)));
             }
             $marker = ucwords(strtolower($marker));
-            if (C('Plugins.DiscussionMarker.AllowJump', false) != 'Search') {
+            if (c('Plugins.DiscussionMarker.AllowJump', false) != 'Search') {
                 echo wrap($marker, 'span', array('class' => 'Tag DMarker DMarker-'.$tagmarker));
             } else {
                 $searchurl = 'search&Search=' . preg_replace('/[\s]/', '+', $marker);
