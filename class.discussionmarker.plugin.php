@@ -3,7 +3,7 @@
 $PluginInfo['DiscussionMarker'] = array(
     'Name' => 'Discussion Marker',
     'Description' => 'Label a discussion on Discussions page based on words contained in Title.  Options for click scrolling or click searching for Labels',
-    'Version' => '1.8',
+    'Version' => '1.8.1',
     'SettingsUrl' => '/dashboard/settings/DiscussionMarker',
     'MobileFriendly' => true,
     'Author' => 'Peregrine',
@@ -64,7 +64,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
         $markerArray = preg_split('/ *, */', c('Plugins.DiscussionMarker.WordList'));
 
         foreach ($markerArray as $marker) {
-            if (!preg_match('/\b'.$marker.'\b/', $title)) {
+            if (!preg_match('/\b'.preg_quote($marker, '/').'\b/', $title)) {
                 continue;
             }
 
