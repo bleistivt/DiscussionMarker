@@ -53,10 +53,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
     }
 
     public function categoriesController_render_before($sender) {
-        $sender->addCssFile('dm.css', 'plugins/DiscussionMarker');
-        if (c('Plugins.DiscussionMarker.AllowJump', false) == 'Scroll') {
-            $sender->addJsFile($this->getResource('js/discussionmarker.js', false, false));
-        }
+        $this->discussionsController_render_before($sender);
     }
 
     protected function displayMarker($sender, $args) {
