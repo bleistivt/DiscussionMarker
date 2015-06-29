@@ -1,18 +1,11 @@
-jQuery(document).ready(function ($) {
+jQuery(function ($) {
 
-    $('.DMarker').on('click', function (event) {
-        var label =    ("." + $(this).attr("class").split(' ')[2]);
-        var index = $(label).index(this);
-        index++;
-        var target = $(label).get(index);
-        if (typeof target == 'undefined') {
-            target = label;
-        }
-        // you can adjust the number after top to the number you desire for positioning
+    $('.DMarker').on('click', function () {
+        var label = '.' + $(this).attr('class').split(' ')[2],
+            target = $(label).get($(label).index(this) + 1) || label;
         $('html, body').animate({
-            scrollTop: $(target).offset().top -35
+            scrollTop: $(target).offset().top - 35
         }, 1000);
     });
-
 
 });
