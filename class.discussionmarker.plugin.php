@@ -1,6 +1,6 @@
 <?php
 
-$PluginInfo['DiscussionMarker'] = array(
+$PluginInfo['DiscussionMarker'] = [
     'Name' => 'Discussion Marker',
     'Description' => 'Label a discussion on Discussions page based on words contained in Title.  Options for click scrolling or click searching for Labels',
     'Version' => '1.9',
@@ -8,7 +8,7 @@ $PluginInfo['DiscussionMarker'] = array(
     'MobileFriendly' => true,
     'Author' => 'Peregrine',
     'License' => 'GNU GPL2'
-);
+];
 
 class DiscussionMarkerPlugin extends Gdn_Plugin {
 
@@ -17,34 +17,36 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
         $sender->addSideMenu();
 
         $conf = new ConfigurationModule($sender);
-        $conf->initialize(array(
-            'Plugins.DiscussionMarker.WordList' => array(
+        $conf->initialize([
+            'Plugins.DiscussionMarker.WordList' => [
                 'Control' => 'textbox',
                 'LabelCode' => 'Word List',
                 'Description' => 'Enter your list of words, separated by commas; e.g. "for sale, buy, wanted".'
-            ),
-            'Plugins.DiscussionMarker.AllowJump' => array(
+            ],
+            'Plugins.DiscussionMarker.AllowJump' => [
                 'Control' => 'dropdown',
                 'LabelCode' => 'Allow Clicking on Marker Labels',
-                'Items' => array(
+                'Items' => [
                     '0' => 'Clicking Not Enabled',
                     'Scroll' => 'Scroll Within Page',
                     'Search' => 'Search Results Page'
-                )
-            ),
-            'Plugins.DiscussionMarker.GroupLabels' => array(
+                ]
+            ],
+            'Plugins.DiscussionMarker.GroupLabels' => [
                 'Control' => 'checkbox',
                 'LabelCode' => 'Use Group Labeling (see README.md)'
-            )
-        ));
+            ]
+        ]);
 
         $sender->title('Discussion Marker');
         $conf->renderAll();
     }
 
+
     public function discussionsController_beforeDiscussionMeta_handler($sender, $args) {
         $this->displayMarker($sender, $args);
     }
+
 
     public function categoriesController_beforeDiscussionMeta_handler($sender, $args) {
         $this->displayMarker($sender, $args);
@@ -57,9 +59,11 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
         }
     }
 
+
     public function categoriesController_render_before($sender) {
         $this->discussionsController_render_before($sender);
     }
+
 
     protected function displayMarker($sender, $args) {
         $title = val('Name', $args['Discussion']);
@@ -77,11 +81,14 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             }
             $marker = ucwords(strtolower($marker));
             if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
-                echo wrap($marker, 'span', array('class' => 'Tag MItem DMarker DMarker-'.$tagmarker));
+                echo wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
             } else {
                 $searchurl = 'search&Search=' . preg_replace('/[\s]/', '+', $marker);
-                echo anchor(wrap(Gdn_Format::text($marker), 'span',
-                    array('class' => 'Tag MItem DMarker DMarker-'.$tagmarker )), $searchurl);
+                echo anchor(wrap(
+                    Gdn_Format::text($marker),
+                    'span',
+                    ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]
+                ), $searchurl);
             }
         }
     }
