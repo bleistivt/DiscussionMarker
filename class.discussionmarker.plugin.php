@@ -1,20 +1,10 @@
 <?php
 
-$PluginInfo['DiscussionMarker'] = [
-    'Name' => 'Discussion Marker',
-    'Description' => 'Label a discussion on Discussions page based on words contained in Title.  Options for click scrolling or click searching for Labels',
-    'Version' => '1.9',
-    'SettingsUrl' => 'settings/discussionmarker',
-    'MobileFriendly' => true,
-    'Author' => 'Peregrine',
-    'License' => 'GNU GPL2'
-];
-
 class DiscussionMarkerPlugin extends Gdn_Plugin {
 
     public function settingsController_discussionMarker_create($sender) {
         $sender->permission('Garden.Settings.Manage');
-        $sender->addSideMenu();
+        $sender->setHighlightRoute();
 
         $conf = new ConfigurationModule($sender);
         $conf->initialize([
@@ -83,7 +73,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
                 echo wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
             } else {
-                $searchurl = 'search&Search=' . preg_replace('/[\s]/', '+', $marker);
+                $searchurl = 'search?'.http_build_query(['Search' => $marker]);
                 echo anchor(wrap(
                     Gdn_Format::text($marker),
                     'span',
