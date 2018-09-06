@@ -58,6 +58,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
     protected function displayMarker($sender, $args) {
         $title = val('Name', $args['Discussion']);
         $markerArray = preg_split('/ *, */', c('Plugins.DiscussionMarker.WordList'));
+        $echo = '';
 
         foreach ($markerArray as $marker) {
             if (!preg_match('/\b'.preg_quote($marker, '/').'\b/i', $title)) {
@@ -71,15 +72,19 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             }
             $marker = ucwords(strtolower($marker));
             if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
-                echo wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
+                $echo .= wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
             } else {
                 $searchurl = 'search?'.http_build_query(['Search' => $marker]);
-                echo anchor(wrap(
+                $echo .= anchor(wrap(
                     Gdn_Format::text($marker),
                     'span',
                     ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]
                 ), $searchurl);
             }
+        }
+
+        if ($echo) {
+            echo '<div class="markergroup">'.$echo.'</div>';
         }
     }
 
