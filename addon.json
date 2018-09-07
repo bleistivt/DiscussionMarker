@@ -1,7 +1,7 @@
 {
     "name": "Discussion Marker",
     "description": "Label a discussion on Discussions page based on words contained in Title. Options for click scrolling or click searching for Labels",
-    "version": "1.9",
+    "version": "1.10",
     "settingsUrl": "settings/DiscussionMarker",
     "mobileFriendly": true,
     "license": "GNU GPL2",
