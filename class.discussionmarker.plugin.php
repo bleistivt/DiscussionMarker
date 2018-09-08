@@ -4,7 +4,6 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
 
     public function settingsController_discussionMarker_create($sender) {
         $sender->permission('Garden.Settings.Manage');
-        $sender->setHighlightRoute();
 
         $conf = new ConfigurationModule($sender);
         $conf->initialize([
@@ -71,15 +70,13 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
                 $marker = ucwords(strtolower(t($lMarker)));
             }
             $marker = ucwords(strtolower($marker));
+            $markerspan = wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
+
             if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
-                $echo .= wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
+                $echo .= $markerspan
             } else {
                 $searchurl = 'search?'.http_build_query(['Search' => $marker]);
-                $echo .= anchor(wrap(
-                    Gdn_Format::text($marker),
-                    'span',
-                    ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]
-                ), $searchurl);
+                $echo .= anchor($markerspan, $searchurl);
             }
         }
 
