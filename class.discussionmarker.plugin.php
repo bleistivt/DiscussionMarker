@@ -73,7 +73,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             $markerspan = wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
 
             if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
-                $echo .= $markerspan
+                $echo .= $markerspan;
             } else {
                 $searchurl = 'search?'.http_build_query(['Search' => $marker]);
                 $echo .= anchor($markerspan, $searchurl);
