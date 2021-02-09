@@ -43,7 +43,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
 
 
     public function discussionsController_render_before($sender) {
-        if (c('Plugins.DiscussionMarker.AllowJump') == 'Scroll') {
+        if (Gdn::config('Plugins.DiscussionMarker.AllowJump') == 'Scroll') {
             $sender->addJsFile('discussionmarker.js', 'plugins/DiscussionMarker');
         }
     }
@@ -56,7 +56,7 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
 
     protected function displayMarker($sender, $args) {
         $title = val('Name', $args['Discussion']);
-        $markerArray = preg_split('/ *, */', c('Plugins.DiscussionMarker.WordList'));
+        $markerArray = preg_split('/ *, */', Gdn::config('Plugins.DiscussionMarker.WordList'));
         $echo = '';
 
         foreach ($markerArray as $marker) {
@@ -65,14 +65,14 @@ class DiscussionMarkerPlugin extends Gdn_Plugin {
             }
 
             $tagmarker = preg_replace('/[\s]/', '-', $marker);
-            if (c('Plugins.DiscussionMarker.GroupLabels')) {
+            if (Gdn::config('Plugins.DiscussionMarker.GroupLabels')) {
                 $lMarker = 'DLP ' .$marker;
-                $marker = ucwords(strtolower(t($lMarker)));
+                $marker = ucwords(strtolower(Gdn::translate($lMarker)));
             }
             $marker = ucwords(strtolower($marker));
             $markerspan = wrap($marker, 'span', ['class' => 'Tag MItem DMarker DMarker-'.$tagmarker]);
 
-            if (c('Plugins.DiscussionMarker.AllowJump') != 'Search') {
+            if (Gdn::config('Plugins.DiscussionMarker.AllowJump') != 'Search') {
                 $echo .= $markerspan;
             } else {
                 $searchurl = 'search?'.http_build_query(['Search' => $marker]);
